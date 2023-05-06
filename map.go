@@ -1,0 +1,187 @@
+package gkeybd
+
+import (
+	"github.com/micmonay/keybd_event"
+)
+
+// 需要按下Shift才能输入的键
+var KbShouldShift = map[string]bool{
+	"~":  true,
+	"!":  true,
+	"@":  true,
+	"#":  true,
+	"$":  true,
+	"%":  true,
+	"^":  true,
+	"&":  true,
+	"*":  true,
+	"(":  true,
+	")":  true,
+	"_":  true,
+	"+":  true,
+	"{":  true,
+	"}":  true,
+	"|":  true,
+	":":  true,
+	"\"": true,
+	"<":  true,
+	">":  true,
+	"?":  true,
+}
+
+var KbMap = map[string][]int{
+	// 空白字符
+	"	": {keybd_event.VK_TAB},
+	" ":    {keybd_event.VK_SPACE},
+	"\n":   {keybd_event.VK_ENTER},
+
+	//其他字符
+	"`":  {keybd_event.VK_GRAVE}, // 反引号
+	"~":  {keybd_event.VK_GRAVE},
+	"[":  {keybd_event.VK_SP4},
+	"{":  {keybd_event.VK_SP4},
+	"]":  {keybd_event.VK_SP5},
+	"}":  {keybd_event.VK_SP5},
+	"\\": {keybd_event.VK_BACKSLASH},
+	"|":  {keybd_event.VK_BACKSLASH},
+	"、":  {keybd_event.VK_BACKSLASH}, // 中文顿号
+	";":  {keybd_event.VK_SEMICOLON},
+	":":  {keybd_event.VK_SEMICOLON},
+	"'":  {keybd_event.VK_SP7},
+	"\"": {keybd_event.VK_SP7},
+	",":  {keybd_event.VK_COMMA},
+	"，":  {keybd_event.VK_COMMA}, // 中文逗号
+	"<":  {keybd_event.VK_COMMA},
+	".":  {keybd_event.VK_SP10},
+	">":  {keybd_event.VK_SP10},
+	"/":  {keybd_event.VK_SLASH},
+	"?":  {keybd_event.VK_SLASH},
+
+
+	// 数字
+	"1": {keybd_event.VK_1},
+	"!": {keybd_event.VK_1},
+	"2": {keybd_event.VK_2},
+	"@": {keybd_event.VK_2},
+	"3": {keybd_event.VK_3},
+	"#": {keybd_event.VK_3},
+	"4": {keybd_event.VK_4},
+	"$": {keybd_event.VK_4},
+	"5": {keybd_event.VK_5},
+	"%": {keybd_event.VK_5},
+	"6": {keybd_event.VK_6},
+	"^": {keybd_event.VK_6},
+	"7": {keybd_event.VK_7},
+	"&": {keybd_event.VK_7},
+	"8": {keybd_event.VK_8},
+	"*": {keybd_event.VK_8},
+	"9": {keybd_event.VK_9},
+	"(": {keybd_event.VK_9},
+	"0": {keybd_event.VK_0},
+	")": {keybd_event.VK_0},
+	"-": {keybd_event.VK_MINUS},
+	"_": {keybd_event.VK_MINUS},
+	"=": {keybd_event.VK_EQUAL},
+	"+": {keybd_event.VK_EQUAL},
+
+	// 大写字母
+	"Q": {keybd_event.VK_Q},
+	"W": {keybd_event.VK_W},
+	"E": {keybd_event.VK_E},
+	"R": {keybd_event.VK_R},
+	"T": {keybd_event.VK_T},
+	"Y": {keybd_event.VK_Y},
+	"U": {keybd_event.VK_U},
+	"I": {keybd_event.VK_I},
+	"O": {keybd_event.VK_O},
+	"P": {keybd_event.VK_P},
+	"A": {keybd_event.VK_A},
+	"S": {keybd_event.VK_S},
+	"D": {keybd_event.VK_D},
+	"F": {keybd_event.VK_F},
+	"G": {keybd_event.VK_G},
+	"H": {keybd_event.VK_H},
+	"J": {keybd_event.VK_J},
+	"K": {keybd_event.VK_K},
+	"L": {keybd_event.VK_L},
+	"Z": {keybd_event.VK_Z},
+	"X": {keybd_event.VK_X},
+	"C": {keybd_event.VK_C},
+	"V": {keybd_event.VK_V},
+	"B": {keybd_event.VK_B},
+	"N": {keybd_event.VK_N},
+	"M": {keybd_event.VK_M},
+
+	// 小写字母
+	"q": {keybd_event.VK_Q},
+	"w": {keybd_event.VK_W},
+	"e": {keybd_event.VK_E},
+	"r": {keybd_event.VK_R},
+	"t": {keybd_event.VK_T},
+	"y": {keybd_event.VK_Y},
+	"u": {keybd_event.VK_U},
+	"i": {keybd_event.VK_I},
+	"o": {keybd_event.VK_O},
+	"p": {keybd_event.VK_P},
+	"a": {keybd_event.VK_A},
+	"s": {keybd_event.VK_S},
+	"d": {keybd_event.VK_D},
+	"f": {keybd_event.VK_F},
+	"g": {keybd_event.VK_G},
+	"h": {keybd_event.VK_H},
+	"j": {keybd_event.VK_J},
+	"k": {keybd_event.VK_K},
+	"l": {keybd_event.VK_L},
+	"z": {keybd_event.VK_Z},
+	"x": {keybd_event.VK_X},
+	"c": {keybd_event.VK_C},
+	"v": {keybd_event.VK_V},
+	"b": {keybd_event.VK_B},
+	"n": {keybd_event.VK_N},
+	"m": {keybd_event.VK_M},
+
+	"VK_SP2":  {keybd_event.VK_SP2},  // Mac里是减号-
+	"VK_SP3":  {keybd_event.VK_SP3},  // Mac里是等于号=
+	"VK_SP6":  {keybd_event.VK_SP6},  // Mac里是分号;
+	"VK_SP8":  {keybd_event.VK_SP8},  // Mac里是反斜杠和顿号、
+	"VK_SP9":  {keybd_event.VK_SP9},  // Mac里是逗号},
+	"VK_SP11": {keybd_event.VK_SP11}, // Mac里是斜杠/
+	"VK_SP12": {keybd_event.VK_SP12}, // Mac里是反引号`
+
+	// TODO
+	"VK_SP1": {keybd_event.VK_SP1},
+	"VK_ESC": {keybd_event.VK_ESC},
+	"VK_F1":  {keybd_event.VK_F1},
+	"VK_F2":  {keybd_event.VK_F2},
+	"VK_F3":  {keybd_event.VK_F3},
+	"VK_F4":  {keybd_event.VK_F4},
+	"VK_F5":  {keybd_event.VK_F5},
+	"VK_F6":  {keybd_event.VK_F6},
+	"VK_F7":  {keybd_event.VK_F7},
+	"VK_F8":  {keybd_event.VK_F8},
+	"VK_F9":  {keybd_event.VK_F9},
+	"VK_F10": {keybd_event.VK_F10},
+	"VK_F11": {keybd_event.VK_F11},
+	"VK_F12": {keybd_event.VK_F12},
+	"VK_F13": {keybd_event.VK_F13},
+	"VK_F14": {keybd_event.VK_F14},
+	"VK_F15": {keybd_event.VK_F15},
+	"VK_F16": {keybd_event.VK_F16},
+	"VK_F17": {keybd_event.VK_F17},
+	"VK_F18": {keybd_event.VK_F18},
+	"VK_F19": {keybd_event.VK_F19},
+	"VK_F20": {keybd_event.VK_F20},
+
+	"VK_CAPSLOCK": {keybd_event.VK_CAPSLOCK},
+	"VK_PAGEUP":   {keybd_event.VK_PAGEUP},
+	"VK_PAGEDOWN": {keybd_event.VK_PAGEDOWN},
+	"VK_END":      {keybd_event.VK_END},
+	"VK_HOME":     {keybd_event.VK_HOME},
+	"VK_LEFT":     {keybd_event.VK_LEFT},
+	"VK_UP":       {keybd_event.VK_UP},
+	"VK_RIGHT":    {keybd_event.VK_RIGHT},
+	"VK_DOWN":     {keybd_event.VK_DOWN},
+
+	"VK_DELETE": {keybd_event.VK_DELETE},
+	"VK_HELP":   {keybd_event.VK_HELP},
+}
