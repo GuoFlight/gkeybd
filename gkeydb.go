@@ -19,6 +19,11 @@ func TypeStr(str string) error {
 	}
 	// 轮循按下按键
 	for _, char := range str {
+		// 这些字符应该忽略
+		if char == '\r' {
+			continue
+		}
+
 		if vks, ok := KbMap[string(char)]; ok {
 			//是否按下shift
 			if _, ok := KbShouldShift[string(char)]; ok {
