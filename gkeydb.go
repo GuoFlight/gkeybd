@@ -3,12 +3,12 @@ package gkeybd
 import (
 	"errors"
 	"fmt"
+	"strings"
 	"github.com/micmonay/keybd_event"
 )
 
 // 按下字符串
 func TypeStr(str string) error {
-
 	if len(str) == 0 {
 		return nil
 	}
@@ -25,8 +25,8 @@ func TypeStr(str string) error {
 		}
 
 		if vks, ok := KbMap[string(char)]; ok {
-			//是否按下shift
-			if _, ok := KbShouldShift[string(char)]; ok {
+			// 是否按下shift，包括是大写的情况下按下
+			if _, ok := KbShouldShift[string(char)]; ok || strings.ToUpper(string(char)) != string(char){
 				kb.HasSHIFTR(true)
 			}
 
