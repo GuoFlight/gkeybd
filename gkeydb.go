@@ -26,7 +26,7 @@ func TypeStr(str string) error {
 
 		if vks, ok := KbMap[string(char)]; ok {
 			// 是否按下shift，包括是大写的情况下按下
-			if _, ok := KbShouldShift[string(char)]; ok || strings.ToUpper(string(char)) != string(char){
+			if _, ok := KbShouldShift[string(char)]; ok || strings.ToLower(string(char)) != string(char){
 				kb.HasSHIFTR(true)
 			}
 
